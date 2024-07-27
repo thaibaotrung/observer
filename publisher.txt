@@ -1,0 +1,2 @@
+Movie-Pho trong lang-fale
+Newspaper-Dan Tri-false
