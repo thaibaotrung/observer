@@ -1,5 +1,9 @@
 package model;
 
+import io.quarkus.mongodb.panache.PanacheMongoEntity;
+import io.quarkus.mongodb.panache.common.MongoEntity;
+
+
 public abstract class File {
 
     private String type;

@@ -1,8 +1,17 @@
 package test;
 
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import io.quarkus.mongodb.panache.PanacheMongoRepository;
+import io.quarkus.mongodb.reactive.ReactiveMongoClient;
+import io.quarkus.mongodb.reactive.ReactiveMongoCollection;
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import model.File;
 import model.Movie;
 import model.Newspaper;
+import org.bson.Document;
 import publisher.Publisher;
 import subcriber.MovieSubscriber;
 import subcriber.NewspaperSubscriber;
@@ -13,11 +22,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+@ApplicationScoped
 public class ExampleResource {
+    @Inject
+    static
+    ReactiveMongoClient mongoClient;
 
     public static void main(String args[]){
+
         Publisher publisher = new Publisher();
+        MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+        publisher.setMongoClient(mongoClient);
 
         Subscriber movieSubscriber1 = new MovieSubscriber("Alice");
         Subscriber movieSubscriber2 = new MovieSubscriber("Bob");
@@ -28,19 +43,18 @@ public class ExampleResource {
         publisher.addSubscriber(movieSubscriber2);
         publisher.addSubscriber(newspaperSubscriber1);
         publisher.addSubscriber(newspaperSubscriber2);
-        
+
         String filePath = "D:\\observer\\publisher.txt";
 
-        List<Movie> movies = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("-");
-                if (parts.length == 3) {
+                if (parts.length == 2) {
                     String type = parts[0].trim();
                     String name = parts[1].trim();
-                    boolean read = Boolean.parseBoolean(parts[2].trim());
-
+//                    boolean read = Boolean.parseBoolean(parts[2].trim());
+                    boolean read = false;
                     if (type.equals("Movie")) {
                         Movie movie = new Movie(type, name, read);
                         publisher.addFile(movie);
@@ -55,4 +69,5 @@ public class ExampleResource {
             System.out.println("An error occurred while reading the file: " + e.getMessage());
         }
     }
+
 }

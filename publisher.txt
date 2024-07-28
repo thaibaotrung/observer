@@ -1,2 +1,6 @@
-Movie-Pho trong lang-fale
-Newspaper-Dan Tri-false
+Movie-Pho trong lang
+Newspaper-Dan Tri
+Movie-Minh yeu nhau binh yen thoi
+Newspaper-Phap luat
+Movie-Ma
+Newspaper-Diep
