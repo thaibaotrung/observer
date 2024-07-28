@@ -24,10 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 @ApplicationScoped
 public class ExampleResource {
-    @Inject
-    static
-    ReactiveMongoClient mongoClient;
-
     public static void main(String args[]){
 
         Publisher publisher = new Publisher();
@@ -53,7 +49,6 @@ public class ExampleResource {
                 if (parts.length == 2) {
                     String type = parts[0].trim();
                     String name = parts[1].trim();
-//                    boolean read = Boolean.parseBoolean(parts[2].trim());
                     boolean read = false;
                     if (type.equals("Movie")) {
                         Movie movie = new Movie(type, name, read);

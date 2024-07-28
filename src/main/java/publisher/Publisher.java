@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 @ApplicationScoped
 public class Publisher {
-    private static List<File> files = new ArrayList<>();
     private List<Subscriber> subscribers = new ArrayList<>();
     private MongoClient mongoClient;
     public void setMongoClient(MongoClient mongoClient) {
@@ -27,7 +26,6 @@ public class Publisher {
 
     public void addFile(File file) {
         if (!isFileInDatabase(file)) {
-            files.add(file);
             notifySubscribers(file);
             saveFileToDatabase(file);
         }
