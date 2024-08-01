@@ -1,9 +1,3 @@
 Movie-Pho trong lang
 Newspaper-Dan Tri
 Movie-Minh yeu nhau binh yen thoi
-Newspaper-Phap luat
-Movie-Ma
-Newspaper-Diep
-Movie-Diep
-Movie-Trung
-Movie-15
